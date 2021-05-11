@@ -1,3 +1,4 @@
+import './PhoneInfoList.css';
 import React, {Component} from 'react';
 import PhoneInfo from './PhoneInfo';
 
@@ -22,7 +23,7 @@ class PhoneInfoList extends Component {
 		);
 
 		return(
-			<div>
+			<div class="list">
 				{list}
 			</div>
 		);

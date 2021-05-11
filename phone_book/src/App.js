@@ -1,7 +1,9 @@
 import './App.css';
 import React, {Component} from 'react';
+import Modal from './components/Modal.js';
 import PhoneForm from './components/PhoneForm.js';
 import PhoneInfoList from './components/PhoneInfoList.js';
+import {MdAddCircle} from 'react-icons/md';
 
 class App extends Component {
 	id = 2
@@ -17,7 +19,8 @@ class App extends Component {
 				name: '김다라',
 				phone: '010-1111-1111'
 			}
-		]
+		],
+		modalOpen: false,
 	}
 
 	handleCreate = (data) => {
@@ -44,18 +47,33 @@ class App extends Component {
 		})
 	}
 
+  	openModal = () => {
+		this.setState({
+			modalOpen: true
+		})
+  	}
+  	closeModal = () => {
+    	this.setState({
+			modalOpen: false
+		})
+  	}
+
 	render() {
-		const {information} = this.state;
+		const {information, modalOpen} = this.state;
 		return (
-			<div className="App">
-				<PhoneForm
-					onCreate={this.handleCreate}
-				/>
+			<div class="App">
+				<h1>PHONE BOOK</h1>
 				<PhoneInfoList
 					data={information}
 					onRemove={this.handleRemove}
 					onUpdate={this.handleUpdate}
 				/>
+				<MdAddCircle id="modal-btn" onClick={this.openModal}></MdAddCircle>
+      			<Modal open={modalOpen} close={this.closeModal} header="ADD CONTACTS">
+					<PhoneForm
+						onCreate={this.handleCreate}
+					/>
+      			</Modal>
 			</div>
 		);
 	}
