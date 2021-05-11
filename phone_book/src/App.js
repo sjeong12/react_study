@@ -72,6 +72,7 @@ class App extends Component {
       			<Modal open={modalOpen} close={this.closeModal} header="ADD CONTACTS">
 					<PhoneForm
 						onCreate={this.handleCreate}
+						close={this.closeModal}
 					/>
       			</Modal>
 			</div>

@@ -13,6 +13,11 @@ const PhoneInfo = ({info, onRemove, onUpdate}) => {
 		onRemove(info.id);
 	}
 
+	const handleUndo = () => {
+		//setData(info);
+		setModify(!modify);
+	}
+
 	const handleModify = () => {
 		if (modify === undefined)
 			setModify(false);
@@ -25,17 +30,17 @@ const PhoneInfo = ({info, onRemove, onUpdate}) => {
 			[e.target.name]: e.target.value,
 		};
 		setData(newData);
-		console.log(data);
-	};
+	}
 
 	useEffect(() => {
-		if (modify === false) {
+		if (modify === false && data.name !== '' && data.phone !== '') {
 			onUpdate(info.id, {
 				name: data.name,
 				phone: data.phone
 			});
+			setData({name:'', phone:''});
 		}
-	}, [modify]);
+	}, [modify])
 
 	if (modify) {
 		return (
@@ -57,7 +62,7 @@ const PhoneInfo = ({info, onRemove, onUpdate}) => {
 				</div>
 				<div class="btns">
 					<MdCheckCircle id="modify" onClick={handleModify}></MdCheckCircle>
-					<MdUndo id="delete" onClick={handleRemove}></MdUndo>
+					<MdUndo id="delete" onClick={handleUndo}></MdUndo>
 				</div>
 			</div>
 		);
