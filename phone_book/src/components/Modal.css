@@ -17,6 +17,17 @@
   	font-weight: 400;
 }
 
+.form button {
+	width: 80px;
+	height: 35px;
+	border-radius: 10px;
+	background: #eee;
+}
+.form button:hover {
+	color: #fff;
+	background: #8CDE6F;
+}
+
 .modal {
 	display: none;
 	position: fixed;
@@ -35,8 +46,8 @@
   }
   .modal > section {
 	width: 100%;
-	height: 30%;
-	max-width: 450px;
+	height: 250px;
+	max-width: 420px;
 	position: fixed;
 	right: 0;
 	bottom: 30px;
@@ -62,6 +73,9 @@
 	text-align: center;
 	color: #aaa;
 	background-color: transparent;
+  }
+  .modal > section > header button:hover {
+	color: #899;
   }
   .modal > section > main {
 	padding: 20px;
