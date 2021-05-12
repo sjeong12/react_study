@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Modal from './components/Modal.js';
 import PhoneForm from './components/PhoneForm.js';
 import PhoneInfoList from './components/PhoneInfoList.js';
-import {MdAddCircle} from 'react-icons/md';
+import {MdAdd, MdSearch} from 'react-icons/md';
 
 class App extends Component {
 	id = 2
@@ -20,7 +20,15 @@ class App extends Component {
 				phone: '010-1111-1111'
 			}
 		],
+		keyword: '',
+		searchOpen: false,
 		modalOpen: false,
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			keyword: e.target.value,
+		});
 	}
 
 	handleCreate = (data) => {
@@ -58,17 +66,37 @@ class App extends Component {
 		})
   	}
 
+	onSearch = () => {
+		const input = document.querySelector(".App > .btns");
+		const { searchOpen } = this.state;
+		this.setState({searchOpen: !this.searchOpen});
+		if (searchOpen === true)
+			this.setState({keyword: ''});
+		input.classList.toggle("appear");
+  	}
+
 	render() {
-		const {information, modalOpen} = this.state;
+		const {information, keyword, modalOpen} = this.state;
+		const filteredList = information.filter(
+			info => info.name.indexOf(keyword) !== -1
+		);
 		return (
 			<div class="App">
 				<h1>PHONE BOOK</h1>
+				<div class="btns">
+					<input
+						placeholder="검색할 이름을 입력하세요"
+						onChange={this.handleChange}
+						value={keyword}
+					/>
+					<MdAdd id="modal-btn" onClick={this.openModal}></MdAdd>
+					<MdSearch id="search-btn" onClick={this.onSearch}></MdSearch>
+				</div>
 				<PhoneInfoList
-					data={information}
+					data={filteredList}
 					onRemove={this.handleRemove}
 					onUpdate={this.handleUpdate}
 				/>
-				<MdAddCircle id="modal-btn" onClick={this.openModal}></MdAddCircle>
       			<Modal open={modalOpen} close={this.closeModal} header="ADD CONTACTS">
 					<PhoneForm
 						onCreate={this.handleCreate}
